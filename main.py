@@ -6,9 +6,9 @@ from tensorflow.keras.models import load_model
 def Predict(filename):
     
     #Load model
-    my_model=load_model("model/HAM10000_100epochs.h5")
+    my_model=load_model("model/best_model_optimized.tflite")
     
-    SIZE = 320 #Resize to same size as training images
+    SIZE = 180 #Resize to same size as training images
     img_path = 'static/images/'+filename
     img = np.asarray(Image.open(img_path).resize((SIZE,SIZE)))
     
@@ -20,5 +20,5 @@ def Predict(filename):
     
     #Convert prediction to class name
     pred_class = le.inverse_transform([np.argmax(pred)])[0]
-    print("Diagnosis is:", pred_class)
+    print("Result is:", pred_class)
     return pred_class
