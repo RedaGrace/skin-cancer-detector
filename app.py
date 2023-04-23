@@ -42,7 +42,7 @@ def submit_file():
             filename = secure_filename(file.filename)  #Use this werkzeug method to secure filename. 
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             #getPrediction(filename)
-            label = getPrediction(filename)
+            label = Predict(filename)
             flash(label)
             full_filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             flash(full_filename)
