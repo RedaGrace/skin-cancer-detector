@@ -19,6 +19,6 @@ def Predict(filename):
     pred = my_model.predict(img) #Predict                    
     
     #Convert prediction to class name
-    pred_class = le.inverse_transform([np.argmax(pred)])[0]
-    print("Result is:", pred_class)
-    return pred_class
+    #pred_class = le.inverse_transform([np.argmax(pred)])[0]
+    print("Result is:", pred)
+    return  pred #pred_class
