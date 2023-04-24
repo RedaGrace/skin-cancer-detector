@@ -7,11 +7,24 @@ def Predict(filename):
     
     #Load model
     tflite_model_path = "model/best_model_optimized.tflite"
-    my_model = load_model(tflite_model_path)
-    
+        
     # Load TFLite model and allocate tensors.
-    with open(tflite_model_file, 'rb') as fid:
-        tflite_model = fid.read()
+    interpreter = tf.lite.Interpreter(model_path=tflite_model_path)
+    interpreter.allocate_tensors()
+    
+    # Get input and output tensors.
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    
+    # Test model on random input data.
+    input_shape = input_details[0]['shape']
+    input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+
+    interpreter.invoke()
+    
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    #print(output_data)
     
     SIZE = 180 #Resize to same size as training images
     img_path = 'static/images/'+filename
@@ -25,5 +38,5 @@ def Predict(filename):
     
     #Convert prediction to class name
     #pred_class = le.inverse_transform([np.argmax(pred)])[0]
-    print("Result is:", pred)
-    return  pred #pred_class
+    print("Result is:", output_data)
+    return  output_data #pred #pred_class
