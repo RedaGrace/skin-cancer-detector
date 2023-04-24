@@ -2,41 +2,58 @@ import numpy as np
 from PIL import Image
 from tensorflow.keras.models import load_model
 
+class TensorflowLiteClassificationModel:
+    def __init__(self, model_path, labels, image_size=180):
+        self.interpreter = tf.lite.Interpreter(model_path=model_path)
+        self.interpreter.allocate_tensors()
+        self._input_details = self.interpreter.get_input_details()
+        self._output_details = self.interpreter.get_output_details()
+        self.labels = labels
+        self.image_size=image_size
+
+    def run_from_filepath(self, image_path):
+        input_data_type = self._input_details[0]["dtype"]
+        image = np.array(Image.open(image_path).resize((self.image_size, self.image_size)), dtype=input_data_type)
+        if input_data_type == np.float32:
+            image = image / 255.
+
+        if image.shape == (1, 180, 180):
+            image = np.stack(image*3, axis=0)
+
+        return self.run(image)
+
+    def run(self, image):
+        """
+        args:
+          image: a (1, image_size, image_size, 3) np.array
+
+        Returns list of [Label, Probability], of type List<str, float>
+        """
+
+        self.interpreter.set_tensor(self._input_details[0]["index"], image)
+        self.interpreter.invoke()
+        tflite_interpreter_output = self.interpreter.get_tensor(self._output_details[0]["index"])
+        probabilities = np.array(tflite_interpreter_output[0])
+
+        # create list of ["label", probability], ordered descending probability
+        label_to_probabilities = []
+        for i, probability in enumerate(probabilities):
+            label_to_probabilities.append([self.labels[i], float(probability)])
+        return sorted(label_to_probabilities, key=lambda element: element[1])
+
 
 def Predict(filename):
     
     #Load model
     tflite_model_path = "model/best_model_optimized.tflite"
-        
-    # Load TFLite model and allocate tensors.
-    interpreter = tf.lite.Interpreter(model_path=tflite_model_path)
-    interpreter.allocate_tensors()
-    
-    # Get input and output tensors.
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
-    
-    # Test model on random input data.
-    input_shape = input_details[0]['shape']
-    input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
-    interpreter.set_tensor(input_details[0]['index'], input_data)
-
-    interpreter.invoke()
-    
-    output_data = interpreter.get_tensor(output_details[0]['index'])
-    #print(output_data)
-    
-    SIZE = 180 #Resize to same size as training images
+   
     img_path = 'static/images/'+filename
-    img = np.asarray(Image.open(img_path).resize((SIZE,SIZE)))
     
-    img = img/255.      #Scale pixel values
-    
-    img = np.expand_dims(img, axis=0)  #Get it tready as input to the network       
-    
-    pred = my_model.predict(img) #Predict                    
+    # Usage
+    model = TensorflowLiteClassificationModel(tflite_model_path)
+    (label, probability) = model.run_from_filepath(img_path)                   
     
     #Convert prediction to class name
     #pred_class = le.inverse_transform([np.argmax(pred)])[0]
-    print("Result is:", output_data)
-    return  output_data #pred #pred_class
+    print("Result is:", (label, probability))
+    return  (label, probability) #pred #pred_class
