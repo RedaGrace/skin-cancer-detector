@@ -3,6 +3,9 @@ from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
+labels = ['actinic keratosis', 'basal cell carcinoma', 'dermatofibroma', 'melanoma', 'nevus', 
+          'pigmented benign keratosis', 'seborrheic keratosis', 'squamous cell carcinoma', 'vascular lesion']
+
 class TensorflowLiteClassificationModel:
     def __init__(self, model_path, labels, image_size=180):
         self.interpreter = tf.lite.Interpreter(model_path=model_path)
