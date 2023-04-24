@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-impoer tensoflow as tf
+impoer tensorflow as tf
 from tensorflow.keras.models import load_model
 
 class TensorflowLiteClassificationModel:
