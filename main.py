@@ -6,7 +6,12 @@ from tensorflow.keras.models import load_model
 def Predict(filename):
     
     #Load model
-    my_model=load_model("model/best_model_optimized.tflite")
+    tflite_model_path = "model/best_model_optimized.tflite"
+    my_model = load_model(tflite_model_path)
+    
+    # Load TFLite model and allocate tensors.
+    with open(tflite_model_file, 'rb') as fid:
+        tflite_model = fid.read()
     
     SIZE = 180 #Resize to same size as training images
     img_path = 'static/images/'+filename
