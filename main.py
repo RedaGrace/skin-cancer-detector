@@ -54,7 +54,7 @@ def Predict(filename):
     img_path = 'static/images/'+filename
     
     # Usage
-    model = TensorflowLiteClassificationModel(tflite_model_path)
+    model = TensorflowLiteClassificationModel(tflite_model_path, labels)
     (label, probability) = model.run_from_filepath(img_path)                   
     
     #Convert prediction to class name
