@@ -34,9 +34,8 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul class="links">
-							<li class="active"><a href="index.html">portfolio</a></li>
-							<li><a href="accomplishments.html">accomplishments</a></li>
-							<li><a href="aboutme.html">About me</a></li>
+							<li class="active"><a href="index.html">home</a></li>
+							<li><a href="about-this -work.html">about this work</a></li>
 						</ul>
 						<ul class="icons">
 							<li><a href="https://github.com/RedaGrace" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
@@ -56,6 +55,26 @@
 									<span class="date">My latest project</span>
 									<h2>Predict Future Sales</h2>
 								</header>
+								<form method="post" action="/" enctype="multipart/form-data">
+								    <dl>
+									<p style="color:Violet;">
+									    <input type="file" name="file" autocomplete="off" required>
+									</p>
+								    </dl>
+								    <p style="color:Violet;">
+									<input type="submit" name="Get Results" value="Get Results">
+								    </p>
+								</form>
+								<p style="color:MediumSeaGreen;">
+									{% with messages = get_flashed_messages() %}
+									  {% if messages %}
+									Diagnosis for the following image is: <u><h3 style="color:MediumSeaGreen;">{{ messages[0] }}</h3></u><br>
+									<img src="{{ messages[1] }}" width="300", height="225">
+
+									  {% endif %}
+									{% endwith %}
+								</p>
+
 								<a href="#" class="image main"><img src="images/1.jpg" alt="" /></a>
 								<ul class="actions special">
 									<li><a href="https://github.com/RedaGrace/Predict-Future-Sales" class="button large">check it out</a></li>
@@ -63,63 +82,7 @@
 							</article>
 
 						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										<h2><a href="#">spacex falcon-9 landing prediction<br</h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/falcon9.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="#">project 2<br />
-										imperdiet lorem</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="#">project 3<br />
-										interdum dolor</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="#">project 4<br />
-										nulla imperdiet</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="#">project 5<br />
-										sed consectetur</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-							</section>
-
+							
 						<!-- Footer -->
 
 
