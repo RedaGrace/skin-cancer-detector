@@ -1,5 +1,5 @@
 from waitress import serve
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect
 from flask import flash
 from werkzeug.utils import secure_filename
 from main import Predict
