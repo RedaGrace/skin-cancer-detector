@@ -55,9 +55,9 @@ def Predict(filename):
     
     # Usage
     model = TensorflowLiteClassificationModel(tflite_model_path, labels)
-    (label, probability) = model.run_from_filepath(img_path)                   
+    result = model.run_from_filepath(img_path)                   
     
     #Convert prediction to class name
     #pred_class = le.inverse_transform([np.argmax(pred)])[0]
-    print("Result is:", (label, probability))
-    return  (label, probability) #pred #pred_class
+    print("Result is:", result)
+    return  result #(label, probability) #pred #pred_class
