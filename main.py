@@ -60,4 +60,4 @@ def Predict(filename):
     #Convert prediction to class name
     #pred_class = le.inverse_transform([np.argmax(pred)])[0]
     print("Result is:", result)
-    return  ('Cancer type is:{}\nThe probability is {}'.formate(result[-1][0], result[-1][1])) 
+    return  ('Cancer type is:{}\nThe probability is {}'.format(result[-1][0], result[-1][1])) 
