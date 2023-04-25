@@ -23,7 +23,7 @@ app.secret_key = "secret key"
 #Define the upload folder to save images uploaded by the user. 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/templates')
+@app.route('/')
 def home_page():
 
     return render_template('index.html')
