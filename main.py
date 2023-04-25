@@ -18,11 +18,11 @@ class TensorflowLiteClassificationModel:
     def run_from_filepath(self, image_path):
         input_data_type = self._input_details[0]["dtype"]
         image = np.array(Image.open(image_path).resize((self.image_size, self.image_size)), dtype=input_data_type)
-        if input_data_type == np.float32:
-            image = image / 255.
+        #if input_data_type == np.float32:
+        image = image / 255.    #Scale pixel values
 
-        if image.shape == (1, 180, 180):
-            image = np.stack(image*3, axis=0)
+        #if image.shape == (1, 180, 180):
+        image = np.expand_dims(image, axis=0)
 
         return self.run(image)
 
