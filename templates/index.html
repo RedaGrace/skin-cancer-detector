@@ -33,7 +33,7 @@
 <p style="color:#000080;">
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
-        Diagnosis for the following image is: <u><h3 style="color:#800000;">{{ messages[0] }}</h3></u><br>
+        Diagnosis for the following image is: <u><h4 style="color:#800000;">{{ messages[0] }}</h4></u><br>
         <img src="{{ messages[1] }}" width="600", height="450">
        
 	  {% endif %}
